@@ -106,7 +106,8 @@ def run(force: bool = False, dry_run: bool = False) -> int:
             busy = fetch_busy(svc, busy_cal, min(s.date for s in slots),
                               max(s.date for s in slots), cfg["source"]["timezone"])
             picks = recommend(slots, busy, cfg)
-            print(f"[recommend] {len(picks)} 天有推荐")
+            print(f"[recommend] {len(picks)} 个不冲突场次，覆盖 "
+                  f"{len({p.slot.date for p in picks})} 天")
         except Exception as e:
             print(f"[recommend] 失败（不影响同步）: {e}")
             notify.warn("智能推荐失败", str(e))
