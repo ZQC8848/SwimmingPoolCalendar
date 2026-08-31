@@ -1,0 +1,37 @@
+# 抓取目标
+source:
+  url: https://recsports.usc.edu/rec-facilities/operating-hours/
+  wp_api: https://recsports.usc.edu/wp-json/wp/v2/pages/32843
+  timezone: America/Los_Angeles
+
+# 要同步哪些池子；key 需与网站 h3 标题一致
+pools:
+  "Comp Pool":
+    enabled: true
+    emoji: "🏊"
+    location: "Uytengsu Aquatics Center, 1026 W 34th St, Los Angeles, CA 90089"
+  "Dive Pool":
+    enabled: true
+    emoji: "🤿"
+    location: "Uytengsu Aquatics Center, 1026 W 34th St, Los Angeles, CA 90089"
+
+# 过滤：不满足的时段不进日历
+filters:
+  min_duration_minutes: 45      # 太短的场次不值得跑一趟
+  earliest: "06:00"
+  latest: "23:00"
+
+# 智能推荐：列出所有跟你日程不冲突的场次，推到 Discord（不上日历）
+recommend:
+  enabled: true
+  buffer_minutes: 30            # 忙碌区间前后各撑开多久（换衣服 + 走路）
+  min_swim_minutes: 45          # 空档短于这个就不推荐
+  lead_time_minutes: 45         # 距开始不足这么久就不推了（赶不过去）
+  earliest: "08:00"             # 早于这个点不推荐（排除 6-8am 早场）
+  latest: "22:00"
+
+llm:
+  base_url: https://api.deepseek.com
+  model: deepseek-chat
+  timeout_seconds: 60
+  max_retries: 2

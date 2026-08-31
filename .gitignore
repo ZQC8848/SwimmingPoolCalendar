@@ -1,0 +1,18 @@
+# ---- 凭证：绝不进仓库 ----
+# GCP 服务账号密钥的默认文件名形如 usc-pool-bot-2bbb1abc53fe.json
+*-*.json
+sa.json
+service-account*.json
+credentials*.json
+.env
+secrets/
+
+# ---- 例外：state.json 必须提交 ----
+# 它既是变更检测的记忆，也是心跳（仓库 60 天无活动会被停掉 schedule）
+!state.json
+
+# ---- 杂项 ----
+.venv/
+__pycache__/
+*.pyc
+.cache/

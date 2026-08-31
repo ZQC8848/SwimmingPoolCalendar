@@ -1,0 +1,6 @@
+requests>=2.32
+beautifulsoup4>=4.12
+google-api-python-client>=2.140
+google-auth>=2.33
+PyYAML>=6.0
+icalendar>=6.0
