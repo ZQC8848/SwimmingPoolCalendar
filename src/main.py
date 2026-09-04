@@ -11,7 +11,7 @@ import yaml
 from . import gcal, notify, state
 from .extract import extract
 from .fallback import parse
-from .fetch import fetch_html, page_last_modified
+from .fetch import FetchError, fetch_html, page_last_modified
 from .recommend import fetch_busy, recommend
 from .slice import extract_swim_block
 from .validate import validate, apply_filters
@@ -30,6 +30,7 @@ def run(force: bool = False, dry_run: bool = False) -> int:
 
     # 2) 抓取 + 切片
     block = extract_swim_block(fetch_html(cfg["source"]["url"]))
+    state.clear_fetch_failures()
     print(f"[slice] {len(block)} bytes")
 
     # 3) 双路解析 + 交叉验算。两条都失败才算真失败。
@@ -125,10 +126,30 @@ def run(force: bool = False, dry_run: bool = False) -> int:
     return 0
 
 
+# 连续这么多次抓不到源站才升级为真告警。一天跑三班，所以约等于"整整一天都没抓到"。
+FETCH_FAILURE_ALERT_THRESHOLD = 3
+
+
 def main() -> int:
     try:
         return run(force="--force" in sys.argv, dry_run="--dry-run" in sys.argv)
+
+    except FetchError as e:
+        # 够不着源站 != 我们坏了。USC 的站偶尔超时是常态，日历此刻仍然是对的。
+        # 为别人的抖动拉红色警报，只会让真出事时你已经不看告警了。
+        n = state.bump_fetch_failure()
+        print(f"[fetch] 抓取失败（连续第 {n} 次）: {e}")
+        if n < FETCH_FAILURE_ALERT_THRESHOLD:
+            print("[fetch] 视为暂时性故障，等下一班重试；日历未改动")
+            return 0
+        notify.error(
+            f"连续 {n} 次抓不到 USC 网站",
+            f"{e}\n\n最近 {n} 次运行都没能取到页面，可能是网站长时间故障、"
+            f"改了域名，或者我们被 Cloudflare 拦了。日历保持原样未改动。")
+        return 1
+
     except Exception as e:
+        # 够着了但看不懂 —— 这才是需要你看一眼的
         traceback.print_exc()
         notify.error(f"同步失败: {type(e).__name__}", str(e))
         return 1

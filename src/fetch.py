@@ -19,7 +19,12 @@ class FetchError(RuntimeError):
     pass
 
 
-def _get(url: str, *, tries: int = 3, timeout: int = 30) -> requests.Response:
+# USC 的站点在 Cloudflare 后面，偶尔要十几秒才吐第一个字节。
+# 超时给得太紧会把"慢"误判成"挂"。
+BACKOFF = (5, 20, 45)
+
+
+def _get(url: str, *, tries: int = 3, timeout: int = 45) -> requests.Response:
     last = None
     for i in range(tries):
         try:
@@ -34,7 +39,7 @@ def _get(url: str, *, tries: int = 3, timeout: int = 30) -> requests.Response:
         except requests.RequestException as e:
             last = FetchError(f"{type(e).__name__}: {e}")
         if i < tries - 1:
-            time.sleep(2 ** i * 2)
+            time.sleep(BACKOFF[min(i, len(BACKOFF) - 1)])
     raise last or FetchError(f"failed to fetch {url}")
 
 
@@ -47,7 +52,7 @@ def page_last_modified(wp_api: str) -> str | None:
     try:
         data = _get(wp_api, tries=2, timeout=15).json()
     except Exception:
-        return None
+        return None   # 拿不到就降级为照常抓取，不是致命错误
     return data.get("modified_gmt") or data.get("modified")
 
 

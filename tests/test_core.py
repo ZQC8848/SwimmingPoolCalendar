@@ -149,3 +149,48 @@ def test_clock_is_venue_local_not_machine_local():
     offset = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None) - clock.now(CFG)
     hours = round(offset.total_seconds() / 3600)
     assert hours in (7, 8), f"意外的时区偏移 {hours}h —— clock.py 可能退化成了机器本地时间"
+
+
+# ---------- 抓取失败的分级处理 ----------
+
+def test_transient_fetch_failure_is_not_an_alert(tmp_path, monkeypatch):
+    """源站超时不该触发红色告警 —— 那是 USC 的问题，日历此刻仍然是对的。"""
+    from src import main as main_mod, state as state_mod, notify as notify_mod
+    from src.fetch import FetchError
+
+    monkeypatch.setattr(state_mod, "PATH", tmp_path / "state.json")
+    monkeypatch.setattr(main_mod, "run",
+                        lambda **kw: (_ for _ in ()).throw(FetchError("ReadTimeout")))
+    alerts = []
+    monkeypatch.setattr(notify_mod, "error", lambda *a: alerts.append(a))
+
+    # 前两次：静默容忍，退出码 0（Actions 显示绿色）
+    assert main_mod.main() == 0
+    assert main_mod.main() == 0
+    assert alerts == []
+
+    # 第三次：连续一整天抓不到，升级为真告警
+    assert main_mod.main() == 1
+    assert len(alerts) == 1
+    assert "连续 3 次" in alerts[0][0]
+
+
+def test_fetch_failure_counter_resets_on_success(tmp_path, monkeypatch):
+    from src import state as state_mod
+    monkeypatch.setattr(state_mod, "PATH", tmp_path / "state.json")
+    assert state_mod.bump_fetch_failure() == 1
+    assert state_mod.bump_fetch_failure() == 2
+    state_mod.clear_fetch_failures()
+    assert state_mod.bump_fetch_failure() == 1
+
+
+def test_parse_failure_still_alerts_immediately(tmp_path, monkeypatch):
+    """能抓到但看不懂 —— 这是真问题，第一次就要喊。"""
+    from src import main as main_mod, state as state_mod, notify as notify_mod
+    monkeypatch.setattr(state_mod, "PATH", tmp_path / "state.json")
+    monkeypatch.setattr(main_mod, "run",
+                        lambda **kw: (_ for _ in ()).throw(ValueError("bad schema")))
+    alerts = []
+    monkeypatch.setattr(notify_mod, "error", lambda *a: alerts.append(a))
+    assert main_mod.main() == 1
+    assert len(alerts) == 1

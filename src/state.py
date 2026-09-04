@@ -32,6 +32,21 @@ def as_rows(slots: list[Slot]) -> list[str]:
                   for s in slots)
 
 
+def bump_fetch_failure() -> int:
+    """记一次抓取失败，返回连续失败次数。"""
+    st = load()
+    n = int(st.get("consecutive_fetch_failures", 0)) + 1
+    st["consecutive_fetch_failures"] = n
+    save(st)
+    return n
+
+
+def clear_fetch_failures() -> None:
+    st = load()
+    if st.pop("consecutive_fetch_failures", None) is not None:
+        save(st)
+
+
 def diff(old: list[str], new: list[str]) -> tuple[list[str], list[str]]:
     o, n = set(old or []), set(new or [])
     return sorted(n - o), sorted(o - n)

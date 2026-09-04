@@ -2,10 +2,12 @@ name: Sync USC pool hours
 
 on:
   schedule:
-    # GitHub cron 用 UTC，且高峰期会延迟 5-30 分钟，所以一天跑三次而不是掐点跑一次
-    - cron: "0 14 * * *"   # 07:00 PT
-    - cron: "0 20 * * *"   # 13:00 PT
-    - cron: "0 3 * * *"    # 20:00 PT
+    # GitHub cron 用 UTC 且不保证准时。实测整点（分钟=0）排队最严重，
+    # 前几天延迟了 2.5-4.5 小时，所以刻意错开到非整点分钟。
+    # 一天三班本身也是为了对冲延迟，不指望任何一班准时。
+    - cron: "23 13 * * *"   # 目标 06:23 PT
+    - cron: "47 19 * * *"   # 目标 12:47 PT
+    - cron: "07 3 * * *"    # 目标 20:07 PT
   workflow_dispatch:
     inputs:
       force:
