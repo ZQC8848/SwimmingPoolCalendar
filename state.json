@@ -1,23 +1,23 @@
 {
-  "fingerprint": "59445dccaacf2521",
+  "fingerprint": "0ffe0107c8305292",
   "rows": [
-    "Fri 2026-09-04 Comp Pool 16:00-18:00",
-    "Fri 2026-09-04 Dive Pool 06:00-08:00",
-    "Fri 2026-09-04 Dive Pool 11:00-13:00",
-    "Mon 2026-08-31 Comp Pool 12:00-14:00",
-    "Mon 2026-08-31 Dive Pool 06:00-08:00",
-    "Mon 2026-08-31 Dive Pool 11:00-12:00",
-    "Mon 2026-08-31 Dive Pool 16:00-18:00",
-    "Sat 2026-09-05 Comp Pool 12:00-14:00",
-    "Sat 2026-09-05 Dive Pool 11:00-12:00",
-    "Thu 2026-09-03 Dive Pool 06:00-08:00",
-    "Thu 2026-09-03 Dive Pool 16:00-18:00",
-    "Tue 2026-09-01 Dive Pool 06:00-08:00",
-    "Tue 2026-09-01 Dive Pool 16:00-18:00",
-    "Wed 2026-09-02 Comp Pool 12:00-14:00",
-    "Wed 2026-09-02 Dive Pool 06:00-08:00",
-    "Wed 2026-09-02 Dive Pool 16:00-18:00"
+    "Fri 2026-09-11 Comp Pool 12:00-14:00",
+    "Fri 2026-09-11 Dive Pool 06:00-08:00",
+    "Fri 2026-09-11 Dive Pool 11:00-12:00",
+    "Fri 2026-09-11 Dive Pool 16:00-18:00",
+    "Mon 2026-09-07 Comp Pool 12:00-14:00",
+    "Mon 2026-09-07 Dive Pool 11:00-12:00",
+    "Mon 2026-09-07 Dive Pool 16:00-18:00",
+    "Sun 2026-09-13 Comp Pool 11:00-14:00",
+    "Thu 2026-09-10 Dive Pool 06:00-08:00",
+    "Thu 2026-09-10 Dive Pool 16:00-18:00",
+    "Tue 2026-09-08 Dive Pool 06:00-08:00",
+    "Tue 2026-09-08 Dive Pool 16:00-18:00",
+    "Wed 2026-09-09 Comp Pool 12:00-14:00",
+    "Wed 2026-09-09 Dive Pool 06:00-08:00",
+    "Wed 2026-09-09 Dive Pool 11:00-12:00",
+    "Wed 2026-09-09 Dive Pool 16:00-18:00"
   ],
-  "synced_at": "2026-08-31T18:42:56+00:00",
-  "wp_modified": "2026-08-31T17:00:55"
+  "synced_at": "2026-09-09T17:12:18+00:00",
+  "wp_modified": "2026-09-09T17:08:44"
 }
