@@ -1,4 +1,5 @@
 {
+  "consecutive_fetch_failures": 1,
   "fingerprint": "0ffe0107c8305292",
   "rows": [
     "Fri 2026-09-11 Comp Pool 12:00-14:00",
