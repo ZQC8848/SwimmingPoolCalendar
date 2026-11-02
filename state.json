@@ -1,8 +1,7 @@
 {
   "consecutive_fetch_failures": 2,
-  "fingerprint": "8c63d4c21a8a3300",
+  "fingerprint": "acf7a3e499f3ef52",
   "rows": [
-    "Fri 2026-11-06 Comp Pool 12:00-14:00",
     "Fri 2026-11-06 Dive Pool 06:00-08:00",
     "Mon 2026-11-02 Comp Pool 12:00-14:00",
     "Mon 2026-11-02 Dive Pool 06:00-08:00",
@@ -22,6 +21,6 @@
     "Wed 2026-11-04 Dive Pool 11:00-12:00",
     "Wed 2026-11-04 Dive Pool 16:00-18:00"
   ],
-  "synced_at": "2026-11-01T23:08:10+00:00",
-  "wp_modified": "2026-11-01T21:56:38"
+  "synced_at": "2026-11-02T10:53:13+00:00",
+  "wp_modified": "2026-11-02T07:46:23"
 }
