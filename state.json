@@ -1,22 +1,19 @@
 {
   "consecutive_fetch_failures": 2,
-  "fingerprint": "cd102fe2ec50c305",
+  "fingerprint": "1da91786615dae44",
   "rows": [
-    "Mon 2026-11-16 Comp Pool 12:00-14:00",
-    "Mon 2026-11-16 Dive Pool 06:00-08:00",
-    "Mon 2026-11-16 Dive Pool 11:00-12:00",
-    "Mon 2026-11-16 Dive Pool 16:00-18:00",
-    "Sat 2026-11-14 Comp Pool 12:00-14:00",
-    "Sun 2026-11-15 Comp Pool 11:00-14:00",
-    "Tue 2026-11-17 Comp Pool 12:00-14:00",
-    "Tue 2026-11-17 Dive Pool 06:00-08:00",
-    "Tue 2026-11-17 Dive Pool 11:00-12:00",
-    "Tue 2026-11-17 Dive Pool 16:00-18:00",
-    "Wed 2026-11-18 Comp Pool 12:00-14:00",
-    "Wed 2026-11-18 Dive Pool 06:00-08:00",
-    "Wed 2026-11-18 Dive Pool 11:00-12:00",
-    "Wed 2026-11-18 Dive Pool 16:00-18:00"
+    "Mon 2026-11-23 Comp Pool 12:00-14:00",
+    "Mon 2026-11-23 Dive Pool 06:00-08:00",
+    "Mon 2026-11-23 Dive Pool 11:00-12:00",
+    "Mon 2026-11-23 Dive Pool 16:00-18:00",
+    "Sun 2026-11-29 Comp Pool 11:00-14:00",
+    "Tue 2026-11-24 Comp Pool 12:00-14:00",
+    "Tue 2026-11-24 Dive Pool 06:00-08:00",
+    "Tue 2026-11-24 Dive Pool 11:00-12:00",
+    "Tue 2026-11-24 Dive Pool 16:00-18:00",
+    "Wed 2026-11-25 Comp Pool 12:00-14:00",
+    "Wed 2026-11-25 Dive Pool 11:00-12:00"
   ],
-  "synced_at": "2026-11-14T23:25:34+00:00",
-  "wp_modified": "2026-11-20T16:56:59"
+  "synced_at": "2026-11-23T12:13:00+00:00",
+  "wp_modified": "2026-11-23T01:39:18"
 }
